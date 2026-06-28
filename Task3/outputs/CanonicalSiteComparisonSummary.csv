@@ -1,0 +1,5 @@
+dataset,sites,visit_rows,intervals,recommended_or_clean_intervals,review_intervals
+special_number_intervals,1588,,1918,518,1400
+canonical_site_intervals,6334,8511.0,2177,1499,678
+canonical_high_only,4502,5413.0,911,911,0
+canonical_high_medium,5507,7006.0,1499,1499,0

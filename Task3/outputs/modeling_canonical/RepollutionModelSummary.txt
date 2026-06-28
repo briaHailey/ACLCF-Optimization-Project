@@ -1,0 +1,18 @@
+Repollution Modeling Summary
+
+Strict rows: 1,499
+Strict unique sites: 1,395
+Strict zero-rate share: 67.2%
+Broad rows: 2,177
+Broad unique sites: 1,950
+Broad zero-rate share: 62.2%
+
+Best mean metrics by task for strict:
+- classification_high_rate_top25_train_threshold: logistic_balanced avg_precision=0.7927, roc_auc=0.8934, f1=0.7315, balanced_acc=0.8375
+- classification_positive_rate: logistic_balanced avg_precision=0.7538, roc_auc=0.8464, f1=0.6882, balanced_acc=0.7737
+- regression_log_rate: random_forest_log rmse_log1p=0.3149, mae_raw=1.0352, r2_log1p=0.7325
+
+Best mean metrics by task for broad:
+- classification_high_rate_top25_train_threshold: logistic_balanced avg_precision=0.7420, roc_auc=0.8776, f1=0.6726, balanced_acc=0.8056
+- classification_positive_rate: logistic_balanced avg_precision=0.7569, roc_auc=0.8324, f1=0.6936, balanced_acc=0.7603
+- regression_log_rate: random_forest_log rmse_log1p=0.3886, mae_raw=1.6951, r2_log1p=0.6523

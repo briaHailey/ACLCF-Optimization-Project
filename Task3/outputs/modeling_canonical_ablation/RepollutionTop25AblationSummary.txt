@@ -1,0 +1,25 @@
+Repollution Top-25 Feature Ablation
+
+Strict scope
+- full_base_demo_repollution / logistic_balanced: AP=0.8010, ROC_AUC=0.8919, F1=0.7258, BalAcc=0.8376, features=21
+- full_minus_wind_speed / logistic_balanced: AP=0.8005, ROC_AUC=0.8926, F1=0.7283, BalAcc=0.8376, features=20
+- full_minus_size / logistic_balanced: AP=0.7995, ROC_AUC=0.8918, F1=0.7215, BalAcc=0.8346, features=19
+- base_11_plus_all_repollution_specific / logistic_balanced: AP=0.7994, ROC_AUC=0.8909, F1=0.7182, BalAcc=0.8354, features=15
+- full_minus_demographics / logistic_balanced: AP=0.7994, ROC_AUC=0.8909, F1=0.7182, BalAcc=0.8354, features=15
+- base_11_plus_repollution_core / logistic_balanced: AP=0.7975, ROC_AUC=0.8903, F1=0.7157, BalAcc=0.8338, features=13
+- full_minus_wind_direction / logistic_balanced: AP=0.7927, ROC_AUC=0.8934, F1=0.7315, BalAcc=0.8375, features=20
+- base_11_plus_repollution_core / random_forest_balanced: AP=0.7562, ROC_AUC=0.8933, F1=0.7074, BalAcc=0.8196, features=13
+- base_11_plus_all_repollution_specific / random_forest_balanced: AP=0.7454, ROC_AUC=0.8916, F1=0.6918, BalAcc=0.8074, features=15
+- full_minus_demographics / random_forest_balanced: AP=0.7454, ROC_AUC=0.8916, F1=0.6918, BalAcc=0.8074, features=15
+
+Broad scope
+- full_minus_wind_direction / logistic_balanced: AP=0.7420, ROC_AUC=0.8776, F1=0.6726, BalAcc=0.8056, features=20
+- base_11_plus_repollution_core / logistic_balanced: AP=0.7408, ROC_AUC=0.8729, F1=0.6803, BalAcc=0.8114, features=13
+- full_minus_size / logistic_balanced: AP=0.7404, ROC_AUC=0.8749, F1=0.6714, BalAcc=0.8032, features=19
+- full_minus_wind_speed / logistic_balanced: AP=0.7375, ROC_AUC=0.8741, F1=0.6727, BalAcc=0.8047, features=20
+- full_base_demo_repollution / logistic_balanced: AP=0.7374, ROC_AUC=0.8739, F1=0.6717, BalAcc=0.8039, features=21
+- base_11_plus_all_repollution_specific / logistic_balanced: AP=0.7372, ROC_AUC=0.8722, F1=0.6790, BalAcc=0.8108, features=15
+- full_minus_demographics / logistic_balanced: AP=0.7372, ROC_AUC=0.8722, F1=0.6790, BalAcc=0.8108, features=15
+- base_11_plus_all_repollution_specific / random_forest_balanced: AP=0.7102, ROC_AUC=0.8743, F1=0.6669, BalAcc=0.7979, features=15
+- full_minus_demographics / random_forest_balanced: AP=0.7102, ROC_AUC=0.8743, F1=0.6669, BalAcc=0.7979, features=15
+- full_minus_wind_direction / random_forest_balanced: AP=0.7094, ROC_AUC=0.8747, F1=0.6665, BalAcc=0.7927, features=20

@@ -1,0 +1,58 @@
+Repollution Top-25 Feature Refinement
+
+Full feature baseline: AP=0.8010, ROC_AUC=0.8919, F1=0.7258, BalAcc=0.8376
+
+Leave-one-out removals that improved AP:
+- remove Unemployment_Rate: AP=0.8028 delta=+0.0018
+- remove orientation: AP=0.8026 delta=+0.0016
+- remove Youth_Dependency: AP=0.8016 delta=+0.0006
+- remove Avg_Household_Size: AP=0.8013 delta=+0.0003
+- remove previous_visit_month: AP=0.8012 delta=+0.0002
+- remove latitude: AP=0.8011 delta=+0.0001
+- remove longitude: AP=0.8011 delta=+0.0001
+
+Most damaging leave-one-out removals:
+- remove previous_total_weight: AP=0.6518 delta=-0.1492
+- remove days_between_visits: AP=0.7593 delta=-0.0418
+- remove region: AP=0.7888 delta=-0.0122
+- remove wind_direction_previous: AP=0.7927 delta=-0.0083
+- remove coastline_cleaned: AP=0.7962 delta=-0.0048
+- remove sediment: AP=0.7963 delta=-0.0047
+- remove width_length: AP=0.7993 delta=-0.0017
+- remove UrbanRural_Class: AP=0.7995 delta=-0.0015
+- remove previous_visit_season: AP=0.7995 delta=-0.0015
+- remove road_network: AP=0.8001 delta=-0.0009
+
+Best demographic subset variants:
+- demo_Pct_Age_15_34_Youth_Dependency_UrbanRural_Class_Daytime_Population_Pressure: AP=0.8041, BalAcc=0.8364, features=19
+- demo_Pct_Age_15_34_UrbanRural_Class: AP=0.8040, BalAcc=0.8403, features=17
+- demo_Pct_Age_15_34_Youth_Dependency_UrbanRural_Class: AP=0.8040, BalAcc=0.8406, features=18
+- demo_Pct_Age_15_34_UrbanRural_Class_Daytime_Population_Pressure: AP=0.8039, BalAcc=0.8403, features=18
+- demo_Pct_Age_15_34_Youth_Dependency: AP=0.8033, BalAcc=0.8312, features=17
+- demo_Pct_Age_15_34_Youth_Dependency_Daytime_Population_Pressure: AP=0.8032, BalAcc=0.8334, features=18
+- demo_Pct_Age_15_34_Daytime_Population_Pressure: AP=0.8032, BalAcc=0.8341, features=17
+- demo_Pct_Age_15_34: AP=0.8032, BalAcc=0.8323, features=16
+- demo_Pct_Age_15_34_Youth_Dependency_Avg_Household_Size_UrbanRural_Class_Daytime_Population_Pressure: AP=0.8028, BalAcc=0.8377, features=20
+- demo_Youth_Dependency_UrbanRural_Class: AP=0.8028, BalAcc=0.8374, features=17
+
+Forward selection path:
+- step_00_start: AP=0.7388, BalAcc=0.8093, features=2; added=start
+- step_01_add_region: AP=0.7884, BalAcc=0.8236, features=3; added=region
+- step_02_add_wind_direction_previous: AP=0.7944, BalAcc=0.8351, features=4; added=wind_direction_previous
+- step_03_add_Pct_Age_15_34: AP=0.7968, BalAcc=0.8340, features=5; added=Pct_Age_15_34
+- step_04_add_sediment: AP=0.7995, BalAcc=0.8339, features=6; added=sediment
+- step_05_add_road_network: AP=0.8010, BalAcc=0.8328, features=7; added=road_network
+- step_06_add_wind_speed_previous: AP=0.8021, BalAcc=0.8321, features=8; added=wind_speed_previous
+- step_07_add_previous_visit_season: AP=0.8034, BalAcc=0.8277, features=9; added=previous_visit_season
+- step_08_add_tourist_business: AP=0.8036, BalAcc=0.8281, features=10; added=tourist_business
+- step_09_add_UrbanRural_Class: AP=0.8036, BalAcc=0.8260, features=11; added=UrbanRural_Class
+- step_10_add_Daytime_Population_Pressure: AP=0.8041, BalAcc=0.8272, features=12; added=Daytime_Population_Pressure
+- step_11_add_Youth_Dependency: AP=0.8036, BalAcc=0.8274, features=13; added=Youth_Dependency
+- step_12_add_Unemployment_Rate: AP=0.8034, BalAcc=0.8323, features=14; added=Unemployment_Rate
+- step_13_add_coastline_cleaned: AP=0.8031, BalAcc=0.8303, features=15; added=coastline_cleaned
+- step_14_add_width_length: AP=0.8050, BalAcc=0.8338, features=16; added=width_length
+- step_15_add_longitude: AP=0.8047, BalAcc=0.8348, features=17; added=longitude
+- step_16_add_latitude: AP=0.8048, BalAcc=0.8345, features=18; added=latitude
+- step_17_add_previous_visit_month: AP=0.8038, BalAcc=0.8380, features=19; added=previous_visit_month
+- step_18_add_Avg_Household_Size: AP=0.8026, BalAcc=0.8366, features=20; added=Avg_Household_Size
+- step_19_add_orientation: AP=0.8010, BalAcc=0.8376, features=21; added=orientation

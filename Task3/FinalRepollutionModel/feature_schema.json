@@ -1,0 +1,265 @@
+{
+  "model_name": "repollution_top25_logistic_C1_l2_unweighted",
+  "model_type": "scikit-learn Pipeline: preprocessing + LogisticRegression",
+  "target": "top 25% highest repollution_kg_per_day among strict high/medium canonical intervals",
+  "target_threshold_trained_on_all_strict_rows": 0.08039263585689216,
+  "positive_label": "repollution_kg_per_day >= target_threshold",
+  "features": [
+    {
+      "name": "previous_total_weight",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "945.0",
+        "2435.0",
+        "103.0",
+        "0.0",
+        "221.0"
+      ]
+    },
+    {
+      "name": "days_between_visits",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "578",
+        "892",
+        "227",
+        "231",
+        "1478"
+      ]
+    },
+    {
+      "name": "region",
+      "dtype": "categorical",
+      "missing_values_training": 0,
+      "example_values": [
+        "\u03a0\u0391\u03a4\u03a1\u039f\u039a\u039b\u039f\u03a3",
+        "\u03a0\u0391\u03a4\u03a1\u039f\u039a\u039b\u039f\u03a3",
+        "\u0391\u03a1\u0393\u039f\u03a3\u0391\u03a1\u03a9\u039d\u0399\u039a\u039f\u03a3",
+        "\u0391\u03a1\u0393\u039f\u03a3\u0391\u03a1\u03a9\u039d\u0399\u039a\u039f\u03a3",
+        "\u03a0\u0391\u03a4\u03a1\u039f\u039a\u039b\u039f\u03a3"
+      ]
+    },
+    {
+      "name": "wind_direction_previous",
+      "dtype": "categorical",
+      "missing_values_training": 6,
+      "example_values": [
+        "W",
+        "SW",
+        "N",
+        "NE",
+        "N"
+      ]
+    },
+    {
+      "name": "Pct_Age_15_34",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "0.1926151083876499",
+        "0.1909241009724848",
+        "0.1854920297403356",
+        "0.181272437655409",
+        "0.1897407699109679"
+      ]
+    },
+    {
+      "name": "sediment",
+      "dtype": "categorical",
+      "missing_values_training": 508,
+      "example_values": [
+        "Mixed",
+        "Mixed",
+        "Mixed",
+        "Pebbles",
+        "Pebbles"
+      ]
+    },
+    {
+      "name": "road_network",
+      "dtype": "numeric",
+      "missing_values_training": 530,
+      "example_values": [
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "name": "wind_speed_previous",
+      "dtype": "numeric",
+      "missing_values_training": 7,
+      "example_values": [
+        "3.0",
+        "2.0",
+        "5.0",
+        "4.0",
+        "4.0"
+      ]
+    },
+    {
+      "name": "previous_visit_season",
+      "dtype": "categorical",
+      "missing_values_training": 0,
+      "example_values": [
+        "Summer",
+        "Spring",
+        "Summer",
+        "Summer",
+        "Summer"
+      ]
+    },
+    {
+      "name": "tourist_business",
+      "dtype": "numeric",
+      "missing_values_training": 530,
+      "example_values": [
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "name": "UrbanRural_Class",
+      "dtype": "categorical",
+      "missing_values_training": 0,
+      "example_values": [
+        "Town_Suburb",
+        "Town_Suburb",
+        "Town_Suburb",
+        "Rural",
+        "Rural"
+      ]
+    },
+    {
+      "name": "Daytime_Population_Pressure",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "0.0173765628311082",
+        "0.0160358768770809",
+        "0.0127601099332548",
+        "0.0127601099332548",
+        "0.0173765628311082"
+      ]
+    },
+    {
+      "name": "Youth_Dependency",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "0.2261211493565948",
+        "0.2235655832223279",
+        "0.2177039116672667",
+        "0.1628434258085171",
+        "0.1681727618573095"
+      ]
+    },
+    {
+      "name": "Unemployment_Rate",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "16.9",
+        "11.9",
+        "9.4",
+        "9.4",
+        "16.9"
+      ]
+    },
+    {
+      "name": "coastline_cleaned",
+      "dtype": "numeric",
+      "missing_values_training": 743,
+      "example_values": [
+        "60.0",
+        "390.0",
+        "80.0",
+        "833.0",
+        "315.0"
+      ]
+    },
+    {
+      "name": "width_length",
+      "dtype": "numeric",
+      "missing_values_training": 775,
+      "example_values": [
+        "307.0",
+        "17900.0",
+        "11425.0",
+        "17636.0",
+        "6880.0"
+      ]
+    },
+    {
+      "name": "TourismArrivals_YoY_Pct_NUTS2",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "1.767848375831771",
+        "66.98926458019174",
+        "19.7257436295224",
+        "19.7257436295224",
+        "1.767848375831771"
+      ]
+    },
+    {
+      "name": "AvgStay_NightsPerArrival_NUTS2",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "2.142942024716585",
+        "2.21194366316565",
+        "2.2259160990785376",
+        "2.2259160990785376",
+        "2.142942024716585"
+      ]
+    },
+    {
+      "name": "YachtPressureIndex_10km",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "0.0350140874802169",
+        "0.0350140874802169",
+        "0.0350140874802169",
+        "0.0127323954473516",
+        "0.0127323954473516"
+      ]
+    },
+    {
+      "name": "TourismNights_NUTS2",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "11007331",
+        "5428008",
+        "12409598",
+        "12409598",
+        "11007331"
+      ]
+    },
+    {
+      "name": "Accommodation_Establishments_NUTS2",
+      "dtype": "numeric",
+      "missing_values_training": 0,
+      "example_values": [
+        "1435.0",
+        "956.0",
+        "1186.0",
+        "1186.0",
+        "1435.0"
+      ]
+    }
+  ],
+  "training_dataset": "Task3/outputs/RepollutionCanonicalModelDatasetWithTourism.csv",
+  "training_rows": 1499,
+  "unique_sites": 1395,
+  "created_utc": "2026-06-28T11:56:05.546333+00:00"
+}

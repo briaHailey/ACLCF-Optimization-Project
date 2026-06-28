@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bad924cb73402b1d30df4e28b95c8baf {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div id="control-panel" style="
+    position: fixed; 
+    bottom: 30px; 
+    left: 30px; 
+    width: 280px;
+    background-color: white; 
+    padding: 15px; 
+    border-radius: 8px; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+    z-index: 9999; 
+    font-family: Arial, sans-serif;
+">
+    <h4 style="margin-top: 0; margin-bottom: 10px; color: #333;">TSP Route Sequencer</h4>
+    <p style="margin: 5px 0; font-size: 13px;"><b>Current Step:</b> <span id="step-display">0 / 101</span></p>
+    <p style="margin: 5px 0; font-size: 13px;"><b>Location:</b> <span id="loc-display">PORT</span></p>
+    <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">
+    <button id="next-btn" style="
+        width: 100%; 
+        background-color: #007bff; 
+        color: white; 
+        border: none; 
+        padding: 8px; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        font-weight: bold;
+    ">Next Leg →</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Load the backend routing sequence data
+    const fullPath = [{"step": 0, "name": "PORT", "lat": 37.7188, "lon": 24.05663}, {"step": 1, "name": "3", "lat": 37.655944, "lon": 23.9465}, {"step": 2, "name": "4", "lat": 37.656194, "lon": 23.94425}, {"step": 3, "name": "1", "lat": 37.656139, "lon": 23.956917}, {"step": 4, "name": "5", "lat": 37.481969, "lon": 23.9105}, {"step": 5, "name": "2", "lat": 37.6565, "lon": 23.950917}, {"step": 6, "name": "15", "lat": 37.470311, "lon": 23.052986}, {"step": 7, "name": "16", "lat": 37.633028, "lon": 23.339183}, {"step": 8, "name": "14", "lat": 37.454314, "lon": 23.074178}, {"step": 9, "name": "22", "lat": 37.648358, "lon": 23.164814}, {"step": 10, "name": "21", "lat": 37.573725, "lon": 23.259719}, {"step": 11, "name": "23", "lat": 37.582833, "lon": 23.235325}, {"step": 12, "name": "24", "lat": 37.692478, "lon": 23.162006}, {"step": 13, "name": "25", "lat": 37.696281, "lon": 23.165869}, {"step": 14, "name": "27", "lat": 37.726219, "lon": 23.126111}, {"step": 15, "name": "26", "lat": 37.713333, "lon": 23.158167}, {"step": 16, "name": "28", "lat": 37.719186, "lon": 23.146797}, {"step": 17, "name": "18", "lat": 37.630081, "lon": 23.333064}, {"step": 18, "name": "6", "lat": 37.347844, "lon": 23.276108}, {"step": 19, "name": "7", "lat": 37.338733, "lon": 23.298261}, {"step": 20, "name": "9", "lat": 37.334439, "lon": 23.332108}, {"step": 21, "name": "11", "lat": 37.334706, "lon": 23.33615}, {"step": 22, "name": "12", "lat": 37.345981, "lon": 23.320642}, {"step": 23, "name": "13", "lat": 37.406869, "lon": 23.271228}, {"step": 24, "name": "10", "lat": 37.334697, "lon": 23.334856}, {"step": 25, "name": "17", "lat": 37.507731, "lon": 23.408819}, {"step": 26, "name": "8", "lat": 37.338478, "lon": 23.303542}, {"step": 27, "name": "20", "lat": 37.576344, "lon": 23.359208}, {"step": 28, "name": "19", "lat": 37.569878, "lon": 23.360492}, {"step": 29, "name": "34", "lat": 37.204192, "lon": 24.47775}, {"step": 30, "name": "35", "lat": 37.200244, "lon": 24.51365}, {"step": 31, "name": "36", "lat": 37.204383, "lon": 24.513031}, {"step": 32, "name": "37", "lat": 37.189189, "lon": 24.458089}, {"step": 33, "name": "33", "lat": 37.18315, "lon": 24.445653}, {"step": 34, "name": "30", "lat": 37.123653, "lon": 24.495539}, {"step": 35, "name": "31", "lat": 37.131006, "lon": 24.435328}, {"step": 36, "name": "29", "lat": 37.127919, "lon": 24.431186}, {"step": 37, "name": "38", "lat": 36.790008, "lon": 24.581794}, {"step": 38, "name": "41", "lat": 36.829431, "lon": 24.589375}, {"step": 39, "name": "40", "lat": 36.812372, "lon": 24.590372}, {"step": 40, "name": "43", "lat": 36.829178, "lon": 24.574456}, {"step": 41, "name": "39", "lat": 36.809528, "lon": 24.591417}, {"step": 42, "name": "45", "lat": 36.785231, "lon": 24.531547}, {"step": 43, "name": "44", "lat": 36.834539, "lon": 24.571853}, {"step": 44, "name": "47", "lat": 36.805692, "lon": 24.522592}, {"step": 45, "name": "46", "lat": 36.792047, "lon": 24.531914}, {"step": 46, "name": "42", "lat": 36.830422, "lon": 24.572614}, {"step": 47, "name": "97", "lat": 36.708653, "lon": 25.175542}, {"step": 48, "name": "50", "lat": 36.835906, "lon": 25.426075}, {"step": 49, "name": "51", "lat": 36.828461, "lon": 25.423733}, {"step": 50, "name": "49", "lat": 36.834044, "lon": 25.432586}, {"step": 51, "name": "53", "lat": 36.853392, "lon": 25.451847}, {"step": 52, "name": "52", "lat": 36.822533, "lon": 25.435172}, {"step": 53, "name": "56", "lat": 36.844869, "lon": 25.522772}, {"step": 54, "name": "55", "lat": 36.8245, "lon": 25.458586}, {"step": 55, "name": "58", "lat": 36.855167, "lon": 25.53455}, {"step": 56, "name": "59", "lat": 36.857481, "lon": 25.531286}, {"step": 57, "name": "54", "lat": 36.826611, "lon": 25.462197}, {"step": 58, "name": "60", "lat": 36.859114, "lon": 25.525747}, {"step": 59, "name": "62", "lat": 36.854275, "lon": 25.522606}, {"step": 60, "name": "57", "lat": 36.844447, "lon": 25.522681}, {"step": 61, "name": "61", "lat": 36.856756, "lon": 25.5238}, {"step": 62, "name": "65", "lat": 36.860897, "lon": 25.535769}, {"step": 63, "name": "63", "lat": 36.854581, "lon": 25.521378}, {"step": 64, "name": "64", "lat": 36.856978, "lon": 25.537361}, {"step": 65, "name": "66", "lat": 36.885722, "lon": 25.512783}, {"step": 66, "name": "67", "lat": 36.902561, "lon": 25.573142}, {"step": 67, "name": "69", "lat": 36.913175, "lon": 25.583225}, {"step": 68, "name": "68", "lat": 36.911969, "lon": 25.580522}, {"step": 69, "name": "72", "lat": 36.945356, "lon": 25.620528}, {"step": 70, "name": "87", "lat": 36.834056, "lon": 25.912831}, {"step": 71, "name": "88", "lat": 36.828147, "lon": 25.907372}, {"step": 72, "name": "91", "lat": 36.793083, "lon": 25.743208}, {"step": 73, "name": "89", "lat": 36.824433, "lon": 25.905878}, {"step": 74, "name": "92", "lat": 36.803967, "lon": 25.748547}, {"step": 75, "name": "94", "lat": 36.80585, "lon": 25.784328}, {"step": 76, "name": "93", "lat": 36.802292, "lon": 25.746372}, {"step": 77, "name": "90", "lat": 36.786261, "lon": 25.826972}, {"step": 78, "name": "96", "lat": 36.807972, "lon": 25.800144}, {"step": 79, "name": "95", "lat": 36.810547, "lon": 25.792533}, {"step": 80, "name": "70", "lat": 36.913458, "lon": 25.589842}, {"step": 81, "name": "71", "lat": 36.914661, "lon": 25.592433}, {"step": 82, "name": "100", "lat": 36.636436, "lon": 24.859836}, {"step": 83, "name": "98", "lat": 36.693578, "lon": 25.166186}, {"step": 84, "name": "99", "lat": 36.664192, "lon": 24.859819}, {"step": 85, "name": "32", "lat": 37.145006, "lon": 24.431222}, {"step": 86, "name": "48", "lat": 36.774239, "lon": 24.538267}, {"step": 87, "name": "76", "lat": 36.3491, "lon": 25.82995}, {"step": 88, "name": "79", "lat": 36.3545, "lon": 25.820817}, {"step": 89, "name": "80", "lat": 36.353642, "lon": 25.816928}, {"step": 90, "name": "81", "lat": 36.352117, "lon": 25.810744}, {"step": 91, "name": "77", "lat": 36.353811, "lon": 25.826781}, {"step": 92, "name": "82", "lat": 36.344369, "lon": 25.780839}, {"step": 93, "name": "78", "lat": 36.354592, "lon": 25.824417}, {"step": 94, "name": "85", "lat": 36.373417, "lon": 25.735111}, {"step": 95, "name": "83", "lat": 36.3447, "lon": 25.777467}, {"step": 96, "name": "86", "lat": 36.395122, "lon": 25.776814}, {"step": 97, "name": "84", "lat": 36.351169, "lon": 25.751558}, {"step": 98, "name": "74", "lat": 37.090856, "lon": 25.825272}, {"step": 99, "name": "75", "lat": 37.112914, "lon": 25.796992}, {"step": 100, "name": "73", "lat": 37.091956, "lon": 25.822511}, {"step": 101, "name": "PORT", "lat": 37.7188, "lon": 24.05663}];
+    let currentStepIndex = 0;
+    
+    // Access the Leaflet map global object instanced by folium
+    const mapObject = map_bad924cb73402b1d30df4e28b95c8baf;
+    
+    // Keep trackers for active layer objects so they render cleanly
+    let activeLines = [];
+    let activeMarkers = [];
+
+    document.getElementById("next-btn").addEventListener("click", function() {
+        if (currentStepIndex >= fullPath.length - 1) {
+            alert("Sailing itinerary complete! The ship has successfully returned to port.");
+            return;
+        }
+        
+        // Move tracking pointer forward
+        currentStepIndex++;
+        
+        const originNode = fullPath[currentStepIndex - 1];
+        const targetNode = fullPath[currentStepIndex];
+        
+        // Update DOM metrics on the dashboard panel
+        document.getElementById("step-display").innerText = currentStepIndex + " / " + (fullPath.length - 1);
+        document.getElementById("loc-display").innerText = targetNode.name;
+        
+        // 2. Plot the new connecting leg
+        const lineCoords = [
+            [originNode.lat, originNode.lon],
+            [targetNode.lat, targetNode.lon]
+        ];
+        
+        let polyline = L.polyline(lineCoords, {
+            color: '#007bff',
+            weight: 4,
+            opacity: 0.85,
+            dashArray: '5, 10' // Renders as dashed lines to visually imply transit pathing
+        }).addTo(mapObject);
+        activeLines.push(polyline);
+        
+        // 3. Mark the destination stop node
+        let markerColor = (targetNode.name === 'PORT') ? 'gold' : 'blue';
+        let circle = L.circleMarker([targetNode.lat, targetNode.lon], {
+            radius: 7,
+            color: 'black',
+            weight: 1,
+            fillColor: markerColor,
+            fillOpacity: 0.9
+        }).addTo(mapObject);
+        
+        circle.bindPopup("<b>Stop #" + currentStepIndex + "</b><br>ID: " + targetNode.name);
+        activeMarkers.push(circle);
+        
+        // Smoothly pan the viewport camera to focus on the newly added leg segment
+        mapObject.panTo([targetNode.lat, targetNode.lon]);
+    });
+});
+</script>
+    
+            <div class="folium-map" id="map_bad924cb73402b1d30df4e28b95c8baf" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bad924cb73402b1d30df4e28b95c8baf = L.map(
+                "map_bad924cb73402b1d30df4e28b95c8baf",
+                {
+                    center: [37.7188, 24.05663],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+
+            
+
+        
+    
+            var tile_layer_e439859667ead5134ed271d71c0e6700 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e439859667ead5134ed271d71c0e6700.addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+        
+    
+            var tile_layer_823a3fd149b49695ccd379b61dd99776 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_823a3fd149b49695ccd379b61dd99776.addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+        
+    
+            var tile_layer_77ae99cfe5bdfe9dd143a50509b034c6 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_77ae99cfe5bdfe9dd143a50509b034c6.addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+        
+    
+            var marker_c90a4028484184f16a083b43c0129494 = L.marker(
+                [37.7188, 24.05663],
+                {
+}
+            ).addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+        
+    
+            var icon_0d384bc916ea1402096807c72c991fda = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gold",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_860cd86258c96955e5661c66154dbfec = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b4ed02940d6d24d2145eab9bf7b262c9 = $(`<div id="html_b4ed02940d6d24d2145eab9bf7b262c9" style="width: 100.0%; height: 100.0%;"><b>STARTING HOME PORT</b></div>`)[0];
+                popup_860cd86258c96955e5661c66154dbfec.setContent(html_b4ed02940d6d24d2145eab9bf7b262c9);
+            
+        
+
+        marker_c90a4028484184f16a083b43c0129494.bindPopup(popup_860cd86258c96955e5661c66154dbfec)
+        ;
+
+        
+    
+    
+                marker_c90a4028484184f16a083b43c0129494.setIcon(icon_0d384bc916ea1402096807c72c991fda);
+            
+    
+            var layer_control_7250437e9f27af3ead7e4d74e11dd30e_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_e439859667ead5134ed271d71c0e6700,
+                    "OpenStreetMap" : tile_layer_823a3fd149b49695ccd379b61dd99776,
+                    "Esri Satellite" : tile_layer_77ae99cfe5bdfe9dd143a50509b034c6,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_7250437e9f27af3ead7e4d74e11dd30e = L.control.layers(
+                layer_control_7250437e9f27af3ead7e4d74e11dd30e_layers.base_layers,
+                layer_control_7250437e9f27af3ead7e4d74e11dd30e_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_bad924cb73402b1d30df4e28b95c8baf);
+
+        
+</script>
+</html>
